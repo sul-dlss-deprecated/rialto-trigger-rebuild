@@ -36,6 +36,18 @@ AWS_ACCESS_KEY_ID=999999 AWS_SECRET_ACCESS_KEY=1231 aws \
 
 Note: When deploying to AWS proper, additional network and subnet settings are required. All of the above can also be manually accomplished through the console.
 
+## Add Schedule Event
+
+```
+aws events put-rule --name "rebuildTrigger" --schedule-expression "cron(25 21 ? * * *)"
+```
+
+```
+aws events put-targets --rule rebuildTrigger \
+  --targets "Id"="1", \
+  "Arn"="arn:aws:lambda:us-east-1:123456789012:function:coreRebuild"
+```
+
 ## ENV variables required for lamba
 
 ```
