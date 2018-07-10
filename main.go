@@ -25,7 +25,9 @@ func Handler(ctx context.Context) error {
 		TopicArn: &topicArn,
 	}
 	_, err := snsConn.Publish(input)
-	log.Printf("Error publishing rebuild message to %v: %v", topicArn, err)
+	if err != nil {
+		log.Printf("Error publishing rebuild message to %v: %v", topicArn, err)
+	}
 	return err
 }
 
