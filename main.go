@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"log"
 	"os"
 
 	"github.com/aws/aws-lambda-go/lambda"
@@ -24,7 +25,9 @@ func Handler(ctx context.Context) error {
 		TopicArn: &topicArn,
 	}
 	_, err := snsConn.Publish(input)
-
+	if err != nil {
+		log.Printf("Error publishing rebuild message to %v: %v", topicArn, err)
+	}
 	return err
 }
 
