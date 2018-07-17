@@ -30,7 +30,7 @@ AWS_ACCESS_KEY_ID=999999 AWS_SECRET_ACCESS_KEY=1231 aws \
 --runtime go1.x \
 --role RialtoLambda \
 --handler main \
---environment "Variables={REBUILD_ACTION=rebuild,REBUILD_MESSAGE:full,RIALTO_SNS_ENDPOINT=<ENDPOINT>,RIALTO_TOPIC_ARN=<ARN>}" \
+--environment "Variables={REBUILD_ACTION=rebuild,REBUILD_BODY:full,RIALTO_SNS_ENDPOINT=<ENDPOINT>,RIALTO_TOPIC_ARN=<ARN>}" \
 --zip-file fileb://lambda.zip
 ```
 
@@ -52,7 +52,7 @@ aws events put-targets --rule rebuildTrigger \
 
 ```
 REBUILD_ACTION=rebuild
-REBUILD_MESSAGE=full
+REBUILD_BODY=full
 RIALTO_SNS_ENDPOINT=<ENDPOINT>
 RIALTO_TOPIC_ARN=<ARN>
 ```
