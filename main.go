@@ -14,7 +14,7 @@ import (
 
 // Handler is the Lambda function handler
 func Handler(ctx context.Context) error {
-	message := fmt.Sprintf("{\"action\": %s, \"message\": %s}", os.Getenv("REBUILD_ACTION"), os.Getenv("REBUILD_MESSAGE"))
+	message := fmt.Sprintf("{\"Action\": %s, \"Body\": %s}", os.Getenv("REBUILD_ACTION"), os.Getenv("REBUILD_BODY"))
 	topicArn := os.Getenv("RIALTO_TOPIC_ARN")
 	endpoint := os.Getenv("RIALTO_SNS_ENDPOINT")
 	snsConn := sns.New(session.New(), aws.NewConfig().
