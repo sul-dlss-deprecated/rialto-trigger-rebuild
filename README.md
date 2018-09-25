@@ -1,6 +1,6 @@
 # RIALTO Trigger Rebuild Lambda
 
-The purpose of this lambda is to publish a message to the configured SNS topic that will be used to trigger a full rebuild of the RIALTO derivative data store(s) based on data from the canonical data store.
+The purpose of this lambda is to do a full rebuild of the RIALTO derivative data store(s) based on data from the canonical data store.
 
 ## Scheduled messaging
 
@@ -12,7 +12,7 @@ Resources: [Scheduled Event Rules](https://docs.aws.amazon.com/AmazonCloudWatch/
 
 ## Manual messaging
 
-An API Endpoint is available for this lamba in order trigger a rebuild on demand. (link not included for security)
+An API Endpoint is available for this lambda in order trigger a rebuild on demand. (link not included for security)
 
 ## Build Lambda
 
@@ -30,7 +30,10 @@ AWS_ACCESS_KEY_ID=999999 AWS_SECRET_ACCESS_KEY=1231 aws \
 --runtime go1.x \
 --role RialtoLambda \
 --handler main \
---environment "Variables={REBUILD_ACTION=rebuild,REBUILD_BODY:full,RIALTO_SNS_ENDPOINT=<ENDPOINT>,RIALTO_TOPIC_ARN=<ARN>}" \
+--environment "Variables={RIALTO_SNS_ENDPOINT=<ENDPOINT>,RIALTO_TOPIC_ARN=<ARN>, \
+  SPARQL_ENDPOINT=<SPARQL>,SOLR_HOST=<SOLR>,SOLR_COLLECTION=<COLLECTION>,\
+  RDS_USERNAME=<USERNAME>,RDS_PASSWORD=<PASSWORD>,RDS_DB_NAME=<DBNAME>,\
+  RDS_HOSTNAME=<HOST>,RDS_PORT=<PORT>}" \
 --zip-file fileb://lambda.zip
 ```
 
@@ -48,11 +51,17 @@ aws events put-targets --rule rebuildTrigger \
   "Arn"="arn:aws:lambda:us-east-1:123456789012:function:triggerRebuild"
 ```
 
-## ENV variables required for lamba
+## ENV variables required for lambda
 
 ```
-REBUILD_ACTION=rebuild
-REBUILD_BODY=full
 RIALTO_SNS_ENDPOINT=<ENDPOINT>
 RIALTO_TOPIC_ARN=<ARN>
+SPARQL_ENDPOINT=<SPARQL>
+SOLR_HOST=<SOLR>
+SOLR_COLLECTION=<COLLECTION>
+RDS_USERNAME=<USERNAME>
+RDS_PASSWORD=<PASSWORD>
+RDS_DB_NAME=<DBNAME>
+RDS_HOSTNAME=<HOST>
+RDS_PORT=<PORT>
 ```
