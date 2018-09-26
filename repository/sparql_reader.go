@@ -9,7 +9,7 @@ import (
 
 // Number of records to pull per requst.  If this is too large, then the SPARQL proxy
 // lambda will hit a 6mb limit. See: https://github.com/sul-dlss-labs/sparql-loader/issues/44
-const tripleLimit = 20000
+const tripleLimit = 30000
 
 type Reader interface {
 	QueryResources(f func(*sparql.Results) error) error
