@@ -7,6 +7,10 @@ import (
 	"github.com/sul-dlss-labs/rialto-derivatives/message"
 )
 
+// We're using this batch size, because if we put too many subjects there,
+// we hit an AWS limit on the SNS message size
+const batchSize = 3000
+
 // MessageService is an interface for sending messages to the derivative service
 type MessageService interface {
 	Publish(subjects []string) error
@@ -26,9 +30,25 @@ func NewSNSMessageService(conn *sns.SNS, topicArn *string) MessageService {
 	}
 }
 
-// Publish crafts a "touch" SNS message with the given subjects and
-// pushes the message to the topic
+// Publish crafts a "touch" SNS messages by chunking the provided subjects into
+// batches and pushing the message to the topic
 func (s *SNSMessageService) Publish(subjects []string) error {
+	for i := 0; i < len(subjects); i += batchSize {
+		end := i + batchSize
+
+		if end > len(subjects) {
+			end = len(subjects)
+		}
+
+		err := s.publishMessage(subjects[i:end])
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func (s *SNSMessageService) publishMessage(subjects []string) error {
 	msg := message.Message{
 		Action:   "touch",
 		Entities: subjects,

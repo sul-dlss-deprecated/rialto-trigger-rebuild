@@ -9,9 +9,7 @@ import (
 
 // Number of records to pull per requst.  If this is too large, then the SPARQL proxy
 // lambda will hit a 6mb limit. See: https://github.com/sul-dlss-labs/sparql-loader/issues/44
-// Also consider that this is the size of the Entities field in the message.  Too many entities
-// Can cause the SNS message to be too large
-const tripleLimit = 1000
+const tripleLimit = 30000
 
 type Reader interface {
 	QueryResources(f func(*sparql.Results) error) error
