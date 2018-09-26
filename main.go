@@ -19,6 +19,9 @@ import (
 
 	"github.com/sul-dlss-labs/rialto-trigger-rebuild/actions"
 	"github.com/sul-dlss-labs/rialto-trigger-rebuild/runtime"
+
+	// Added for the postgres driver
+	_ "github.com/lib/pq"
 )
 
 // Handler is the Lambda function handler
