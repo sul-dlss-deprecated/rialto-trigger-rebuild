@@ -12,13 +12,16 @@ Resources: [Scheduled Event Rules](https://docs.aws.amazon.com/AmazonCloudWatch/
 
 ## Manual messaging
 
-An API Endpoint is available for this lambda in order trigger a rebuild on demand. (link not included for security)
+An API Endpoint is available for this lambda in order trigger a rebuild on demand.
+
+```
+curl -H "X-Api-Key: <KEY>" -X POST https://4klo9rqst3.execute-api.us-west-2.amazonaws.com/development/rialto-trigger-rebuild
+```
 
 ## Build Lambda
 
 ```
-GOOS=linux go build -o main
-zip lambda.zip main
+make
 ```
 
 ## Upload Lambda
