@@ -9,7 +9,7 @@ import (
 
 // We're using this batch size, because if we put too many subjects there,
 // we hit an AWS limit on the SNS message size
-const batchSize = 3000
+const batchSize = 1000
 
 // MessageService is an interface for sending messages to the derivative service
 type MessageService interface {
