@@ -27,7 +27,7 @@ jobs:
       - run: go test -v ./...
       - run: go get github.com/golang/dep/cmd/dep
       - run: dep ensure
-      - run: GOOS=linux go build -o main
+      - run: GOOS=linux go build -o trigger-rebuild
 
   deploy:
     docker:
@@ -42,8 +42,8 @@ jobs:
       - checkout
       - run: go get github.com/golang/dep/cmd/dep
       - run: dep ensure
-      - run: GOOS=linux go build -o main
-      - run: zip lambda.zip main
+      - run: GOOS=linux go build -o trigger-rebuild
+      - run: zip lambda.zip trigger-rebuild
       - run:
           name: Upload to S3
           command: |
