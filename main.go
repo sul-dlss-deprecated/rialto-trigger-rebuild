@@ -1,13 +1,11 @@
 package main
 
 import (
-	"context"
 	"database/sql"
 	"log"
 	"os"
 	"time"
 
-	"github.com/aws/aws-lambda-go/lambda"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/sns"
@@ -24,8 +22,7 @@ import (
 	_ "github.com/lib/pq"
 )
 
-// Handler is the Lambda function handler
-func Handler(ctx context.Context) error {
+func main() {
 	// repo := derivativeRepo.BuildRepository()
 	endpoint := os.Getenv("SPARQL_ENDPOINT")
 	neptune := buildSparqlRepo(endpoint)
@@ -38,8 +35,8 @@ func Handler(ctx context.Context) error {
 	err := actions.NewRebuildAction(registry).Run()
 	if err != nil {
 		log.Printf("Error rebuilding: %v", err)
+		panic(err)
 	}
-	return err
 }
 
 func buildSparqlRepo(url string) repository.Reader {
@@ -82,8 +79,4 @@ func buildDatabase() *derivative.PostgresClient {
 	return &derivative.PostgresClient{
 		DB: db,
 	}
-}
-
-func main() {
-	lambda.Start(Handler)
 }
