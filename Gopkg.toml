@@ -30,7 +30,7 @@
 
 [[constraint]]
   branch = "master"
-  name = "github.com/sul-dlss-labs/rialto-derivatives"
+  name = "github.com/sul-dlss/rialto-derivatives"
 
 [prune]
   go-tests = true

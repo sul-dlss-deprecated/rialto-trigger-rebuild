@@ -10,13 +10,13 @@ import (
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/sns"
 	"github.com/knakk/sparql"
-	"github.com/sul-dlss-labs/rialto-derivatives/derivative"
+	"github.com/sul-dlss/rialto-derivatives/derivative"
 
-	"github.com/sul-dlss-labs/rialto-trigger-rebuild/messages"
-	"github.com/sul-dlss-labs/rialto-trigger-rebuild/repository"
+	"github.com/sul-dlss/rialto-trigger-rebuild/messages"
+	"github.com/sul-dlss/rialto-trigger-rebuild/repository"
 
-	"github.com/sul-dlss-labs/rialto-trigger-rebuild/actions"
-	"github.com/sul-dlss-labs/rialto-trigger-rebuild/runtime"
+	"github.com/sul-dlss/rialto-trigger-rebuild/actions"
+	"github.com/sul-dlss/rialto-trigger-rebuild/runtime"
 
 	// Added for the postgres driver
 	_ "github.com/lib/pq"

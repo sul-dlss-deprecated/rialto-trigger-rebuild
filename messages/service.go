@@ -4,13 +4,13 @@ import (
 	"encoding/json"
 
 	"github.com/aws/aws-sdk-go/service/sns"
-	"github.com/sul-dlss-labs/rialto-derivatives/message"
+	"github.com/sul-dlss/rialto-derivatives/message"
 )
 
 // We're using this batch size, because if we put too many subjects there,
 // we hit an AWS limit on the SNS message size (around 1000 is okay for this)
 // We also have a problem where the derivatives lambda can't process all of these
-// before timing out. So set it down to 50. See (https://github.com/sul-dlss-labs/rialto-trigger-rebuild/issues/14)
+// before timing out. So set it down to 50. See (https://github.com/sul-dlss/rialto-trigger-rebuild/issues/14)
 const batchSize = 50
 
 // MessageService is an interface for sending messages to the derivative service

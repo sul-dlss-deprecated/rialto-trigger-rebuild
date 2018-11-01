@@ -1,9 +1,9 @@
 package runtime
 
 import (
-	"github.com/sul-dlss-labs/rialto-derivatives/derivative"
-	"github.com/sul-dlss-labs/rialto-trigger-rebuild/messages"
-	"github.com/sul-dlss-labs/rialto-trigger-rebuild/repository"
+	"github.com/sul-dlss/rialto-derivatives/derivative"
+	"github.com/sul-dlss/rialto-trigger-rebuild/messages"
+	"github.com/sul-dlss/rialto-trigger-rebuild/repository"
 )
 
 // Registry is the object that holds all the external services
