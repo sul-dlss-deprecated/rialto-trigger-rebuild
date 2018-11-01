@@ -27,6 +27,7 @@
     "aws/request",
     "aws/session",
     "aws/signer/v4",
+    "internal/ini",
     "internal/sdkio",
     "internal/sdkrand",
     "internal/sdkuri",
@@ -39,20 +40,14 @@
     "service/sns",
     "service/sts"
   ]
-  revision = "cbd7ed8b82dac1de35d67e576f0b3faf215e1ae9"
-  version = "v1.15.42"
+  revision = "870fa4307c5f57c14153c695df7b87af1acdcbf1"
+  version = "v1.15.66"
 
 [[projects]]
   name = "github.com/davecgh/go-spew"
   packages = ["spew"]
   revision = "8991bc29aa16c548c550c7ff78260e27b9ab7c73"
   version = "v1.1.1"
-
-[[projects]]
-  name = "github.com/go-ini/ini"
-  packages = ["."]
-  revision = "5cf292cae48347c2490ac1a58fe36735fb78df7e"
-  version = "v1.38.2"
 
 [[projects]]
   name = "github.com/jmespath/go-jmespath"
@@ -109,7 +104,7 @@
 
 [[projects]]
   branch = "master"
-  name = "github.com/sul-dlss-labs/rialto-derivatives"
+  name = "github.com/sul-dlss/rialto-derivatives"
   packages = [
     "derivative",
     "message",
@@ -117,7 +112,7 @@
     "repository",
     "transform"
   ]
-  revision = "e008533539fdec83953f37201bcd943d5ada2d7d"
+  revision = "e94c221c47b388ccf711476053316c64c9421b97"
 
 [[projects]]
   name = "github.com/vanng822/go-solr"
@@ -128,6 +123,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "bb0f54f999662d235ce81701515b02d05ce93e24f9a406f9914c63317205234a"
+  inputs-digest = "06648b51a16d1815f69302fd661e63db8a41f2ba68de1683b5c6097485eae1a8"
   solver-name = "gps-cdcl"
   solver-version = 1

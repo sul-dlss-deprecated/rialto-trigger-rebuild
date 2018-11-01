@@ -2,7 +2,7 @@ package actions
 
 import (
 	"github.com/knakk/sparql"
-	"github.com/sul-dlss-labs/rialto-trigger-rebuild/runtime"
+	"github.com/sul-dlss/rialto-trigger-rebuild/runtime"
 )
 
 // Action is an abstract type of work this can do.

@@ -3,8 +3,8 @@ package repository
 import (
 	"errors"
 
-	"github.com/sul-dlss-labs/rialto-derivatives/derivative"
-	"github.com/sul-dlss-labs/rialto-derivatives/models"
+	"github.com/sul-dlss/rialto-derivatives/derivative"
+	"github.com/sul-dlss/rialto-derivatives/models"
 )
 
 // CombinedWriter writes both to PostgreSQL and Solr and fulfills the derivative.Writer interface

@@ -7,8 +7,8 @@ import (
 	"github.com/knakk/sparql"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
-	"github.com/sul-dlss-labs/rialto-derivatives/models"
-	"github.com/sul-dlss-labs/rialto-trigger-rebuild/runtime"
+	"github.com/sul-dlss/rialto-derivatives/models"
+	"github.com/sul-dlss/rialto-trigger-rebuild/runtime"
 )
 
 // MockedWriter is a mocked object that implements the Writer interface
