@@ -14,3 +14,35 @@ jobs:
       - run: dep ensure
       - run: go test -v ./...
       - run: GOOS=linux go build -o trigger-rebuild
+
+  register_image:
+    docker:
+      - image: circleci/golang:latest
+    working_directory: /go/src/github.com/sul-dlss/rialto-trigger-rebuild
+    steps:
+      - setup_remote_docker:
+          version: 18.05.0-ce
+      - checkout
+      - run:
+          name: Build Image & Register Task
+          command: |
+            docker build -t suldlss/rialto-trigger-rebuild:latest .
+            docker login -u $DOCKER_USER -p $DOCKER_PASS
+            docker push suldlss/rialto-trigger-rebuild:latest
+
+workflows:
+  version: 2
+
+  build:
+    jobs:
+      - build:
+          filters:
+            branches:
+              ignore: master
+  
+  register_image:
+    jobs:
+      - register_image:
+          filters:
+            branches:
+              only: master
