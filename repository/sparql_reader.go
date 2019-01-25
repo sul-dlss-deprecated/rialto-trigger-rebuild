@@ -11,7 +11,7 @@ import (
 
 // Reader is the interface to the sparql reader
 type Reader interface {
-	QueryResources(f func(*sparql.Results) error) error
+	QueryResources(resoureType string, f func(*sparql.Results) error) error
 }
 
 // SparqlReader is the functions that interact with the SPARQL repository
