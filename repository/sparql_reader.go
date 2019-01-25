@@ -45,7 +45,9 @@ func (r *SparqlReader) queryPage(sparqlForOffset func(offset int) string, f func
 		if err != nil {
 			return err
 		}
-		if resultCount := len(results.Solutions()); resultCount == 0 {
+		resultCount := len(results.Solutions())
+		log.Printf("[RESULTS] %s", resultCount)
+		if resultCount == 0 {
 			break
 		}
 		if err = f(results); err != nil {
