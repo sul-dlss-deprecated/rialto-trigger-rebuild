@@ -42,11 +42,14 @@ func (r *SparqlReader) queryPage(sparqlForOffset func(offset int) string, f func
 		query := sparqlForOffset(offset)
 		log.Printf("[SPARQL] %s", query)
 		results, err := r.Repo.Query(query)
+		log.Printf("Returned from query")
 		if err != nil {
+			log.Printf("Returning error: %s", err)
 			return err
 		}
+		log.Printf("Counting results")
 		resultCount := len(results.Solutions())
-		log.Printf("[RESULTS] %s", resultCount)
+		log.Printf("[RESULTS] %i", resultCount)
 		if resultCount == 0 {
 			break
 		}
