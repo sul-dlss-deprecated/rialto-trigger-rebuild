@@ -26,7 +26,23 @@ func (r *RebuildAction) Run() error {
 	if err != nil {
 		return err
 	}
-	err = r.registry.Canonical.QueryResources(func(results *sparql.Results) error {
+	var resourceTypes = []string{"http://xmlns.com/foaf/0.1/Organization",
+		"http://xmlns.com/foaf/0.1/Person",
+		"http://vivoweb.org/ontology/core#Grant",
+		"http://www.w3.org/2004/02/skos/core#Concept",
+		"http://purl.org/ontology/bibo/Document",
+		"http://xmlns.com/foaf/0.1/Project"}
+	for _, resourceType := range resourceTypes {
+		err = r.runType(resourceType)
+		if err != nil {
+			break
+		}
+	}
+	return err
+}
+
+func (r *RebuildAction) runType(resourceType string) error {
+	err := r.registry.Canonical.QueryResources(resourceType, func(results *sparql.Results) error {
 		innerErr := r.registry.Topic.Publish(r.solutionsToEntities(results))
 
 		return innerErr
