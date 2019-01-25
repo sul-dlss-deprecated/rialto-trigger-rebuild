@@ -3,14 +3,13 @@ package repository
 import (
 	"fmt"
 	"log"
+	"os"
+	"strconv"
 
 	"github.com/knakk/sparql"
 )
 
-// Number of records to pull per requst.  If this is too large, then the SPARQL proxy
-// lambda will hit a 6mb limit. See: https://github.com/sul-dlss/sparql-loader/issues/44
-const tripleLimit = 30000
-
+// Reader is the interface to the sparql reader
 type Reader interface {
 	QueryResources(f func(*sparql.Results) error) error
 }
@@ -29,7 +28,7 @@ func (r *SparqlReader) QueryResources(f func(*sparql.Results) error) error {
 	WHERE {
 	  ?s a ?type .
 	}
-		ORDER BY ?s OFFSET %v LIMIT %v`, offset, tripleLimit)
+		ORDER BY ?s OFFSET %v LIMIT %v`, offset, tripleLimit())
 		}, f)
 }
 
@@ -38,7 +37,7 @@ func (r *SparqlReader) QueryResources(f func(*sparql.Results) error) error {
 func (r *SparqlReader) queryPage(sparqlForOffset func(offset int) string, f func(*sparql.Results) error) error {
 	page := 0
 	for {
-		offset := page * tripleLimit
+		offset := page * tripleLimit()
 		query := sparqlForOffset(offset)
 		log.Printf("[SPARQL] %s", query)
 		results, err := r.Repo.Query(query)
@@ -49,7 +48,7 @@ func (r *SparqlReader) queryPage(sparqlForOffset func(offset int) string, f func
 		}
 		log.Printf("Counting results")
 		resultCount := len(results.Solutions())
-		log.Printf("[RESULTS] %i", resultCount)
+		log.Printf("[RESULTS] %v", resultCount)
 		if resultCount == 0 {
 			break
 		}
@@ -59,4 +58,11 @@ func (r *SparqlReader) queryPage(sparqlForOffset func(offset int) string, f func
 		page++
 	}
 	return nil
+}
+
+// Number of records to pull per requst.  If this is too large, then the SPARQL proxy
+// lambda will hit a 6mb limit. See: https://github.com/sul-dlss/sparql-loader/issues/44
+func tripleLimit() int {
+	i, _ := strconv.Atoi(os.Getenv("SPARQL_LIMIT"))
+	return i
 }
