@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"log"
 	"os"
+	"strconv"
 	"time"
 
 	"github.com/aws/aws-sdk-go/aws"
@@ -46,7 +47,11 @@ func buildSparqlRepo(url string) repository.Reader {
 	if err != nil {
 		panic(err)
 	}
-	return &repository.SparqlReader{Repo: repo}
+	tripleLimit, err := strconv.Atoi(os.Getenv("RIALTO_TRIPLELIMIT"))
+	if err != nil {
+		panic(err)
+	}
+	return &repository.SparqlReader{Repo: repo, TripleLimit: tripleLimit}
 }
 
 func buildSNSConn() *sns.SNS {
