@@ -28,7 +28,7 @@ type MockRepo struct {
 	mock.Mock
 }
 
-func (m *MockRepo) QueryResources(f func(*sparql.Results) error) error {
+func (m *MockRepo) QueryResources(resourceType string, f func(*sparql.Results) error) error {
 	arg := m.Called(f)
 	return f(arg.Get(0).(*sparql.Results))
 }

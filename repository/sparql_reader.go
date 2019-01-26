@@ -11,7 +11,7 @@ import (
 
 // Reader is the interface to the sparql reader
 type Reader interface {
-	QueryResources(f func(*sparql.Results) error) error
+	QueryResources(resoureType string, f func(*sparql.Results) error) error
 }
 
 // SparqlReader is the functions that interact with the SPARQL repository
@@ -21,14 +21,14 @@ type SparqlReader struct {
 
 // QueryResources calls the function with a list of resources (in managable sized chunks) populated
 // by querying for everything in the triplestore
-func (r *SparqlReader) QueryResources(f func(*sparql.Results) error) error {
+func (r *SparqlReader) QueryResources(resourceType string, f func(*sparql.Results) error) error {
 	return r.queryPage(
 		func(offset int) string {
-			return fmt.Sprintf(`SELECT DISTINCT ?s
+			return fmt.Sprintf(`SELECT ?s
 	WHERE {
-	  ?s a ?type .
+	  ?s a <%v> .
 	}
-		ORDER BY ?s OFFSET %v LIMIT %v`, offset, tripleLimit())
+		ORDER BY ?s OFFSET %v LIMIT %v`, resourceType, offset, tripleLimit())
 		}, f)
 }
 
