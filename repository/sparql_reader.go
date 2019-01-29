@@ -22,6 +22,7 @@ type SparqlReader struct {
 // QueryResources calls the function with a list of resources (in managable sized chunks) populated
 // by querying for everything in the triplestore
 func (r *SparqlReader) QueryResources(resourceType string, f func(*sparql.Results) error) error {
+	log.Printf("[RESOURCE TYPE] %s", resourceType)
 	return r.queryPage(
 		func(offset int) string {
 			return fmt.Sprintf(`SELECT ?s
@@ -39,20 +40,17 @@ func (r *SparqlReader) queryPage(sparqlForOffset func(offset int) string, f func
 	for {
 		offset := page * tripleLimit()
 		query := sparqlForOffset(offset)
-		log.Printf("[SPARQL] %s", query)
 		results, err := r.Repo.Query(query)
-		log.Printf("Returned from query")
 		if err != nil {
-			log.Printf("Returning error: %s", err)
 			return err
 		}
-		log.Printf("Counting results")
 		resultCount := len(results.Solutions())
-		log.Printf("[RESULTS] %v", resultCount)
+		log.Printf("[SPARQL RESULTS] %v results for page %v", resultCount, offset)
 		if resultCount == 0 {
 			break
 		}
-		if err = f(results); err != nil {
+		err = f(results)
+		if err != nil {
 			return err
 		}
 		page++

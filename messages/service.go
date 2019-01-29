@@ -2,6 +2,7 @@ package messages
 
 import (
 	"encoding/json"
+	"log"
 
 	"github.com/aws/aws-sdk-go/service/sns"
 	"github.com/sul-dlss/rialto-derivatives/message"
@@ -65,6 +66,7 @@ func (s *SNSMessageService) publishMessage(subjects []string) error {
 		Message:  &str,
 		TopicArn: s.topicArn,
 	}
-	_, err = s.conn.Publish(input)
+	msgID, err := s.conn.Publish(input)
+	log.Printf("[MESSAGE ID] %s", msgID)
 	return err
 }
