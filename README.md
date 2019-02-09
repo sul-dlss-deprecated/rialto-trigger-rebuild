@@ -1,5 +1,7 @@
 # RIALTO Trigger Rebuild
 
+[![](https://images.microbadger.com/badges/image/suldlss/rialto-trigger-rebuild.svg)](https://microbadger.com/images/suldlss/rialto-trigger-rebuild "Get your own image badge on microbadger.com")
+
 The purpose of this program is to do a full rebuild of the RIALTO derivative data store(s) based on data from the canonical data store.
 
 ## Scheduled messaging
